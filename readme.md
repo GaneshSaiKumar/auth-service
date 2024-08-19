@@ -64,8 +64,12 @@ Send a POST request to /auth/login with the following JSON payload:
 
 
 *For example:*
-`curl -H "Authorization: Bearer your_token" http://localhost:3000/existing
-`
+
+- **register:** ``curl -X POST -H 'Content-Type: application/json' -d '{"username":"your_username","password":"your_password"}' http://localhost:3000/auth/register``
+- **login:** ``curl -X POST -H 'Content-Type: application/json' -d '{"username":"your_username","password":"your_password"}' http://localhost:3000/auth/login``
+- **existing:** ``curl -X GET "http://localhost:3000/existing" -H "Authorization: Bearer your_token"``
+- **users:** ``curl -X GET "http://localhost:3000/users" -H "Authorization: Bearer your_token"``
+  
 
 **Remember to:**
 
