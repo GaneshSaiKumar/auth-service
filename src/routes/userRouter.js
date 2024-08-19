@@ -6,7 +6,7 @@ const userRouter = express.Router();
 
 // List users
 userRouter.get('/', authMiddleware, (req, res) => {
-  const users = readUsers();
+  const users = readUsers().map(user => ({ username: user.username }));
   res.json(users);
 });
 

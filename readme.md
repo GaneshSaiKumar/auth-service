@@ -1,125 +1,88 @@
-# Auth Service
+# Authentication Service
 
-This project implements a user authentication service using custom JWT and password hashing implementations. It includes middleware for verifying JWT tokens and handling authentication for protected routes.
+This project provides a simple authentication service using JSON Web Tokens (JWT) for user registration, login, and protected routes.
 
 ## Features
 
-- User registration and login
-- JWT-based authentication
-- Custom JWT and password hashing implementations
-- Sophisticated JWT middleware with detailed error handling
+- **User Registration:** Allows users to create new accounts with usernames and passwords.
+- **User Login:** Authenticates users based on their credentials and issues JWT tokens.
+- **Protected Routes:** Enforces authentication for specific routes, requiring a valid JWT token for access.
+- **Token Expiration:** JWT tokens have a configurable expiration time, preventing unauthorized access after a set period.
 
-## Setup
+## Getting Started
 
-1. **Clone the Repository**
+### Prerequisites
 
+- Node.js and npm installed on your system.
+
+### Installation
+
+1. Clone the repository:
+   ```bash 
+   git clone https://github.com/your-username/auth-service.git
+2. Navigate to the project directory:
    ```bash
-   git clone https://github.com/GaneshSaiKumar/auth-service.git
    cd auth-service
-Install Dependencies
+3. Install dependencies:
+   ```bash
+   npm install
+4. Configuration
+Add the following environment variables:
+   ```bash
+   JWT_SECRET=your_secret_key
+   TOKEN_EXPIRY_MINUTES=5
+***JWT_SECRET***: A secret key used to sign and verify JWT tokens. Choose a strong and unique key.
+***TOKEN_EXPIRY_MINUTES***: The duration (in minutes) for which JWT tokens are valid.
 
-Install the required Node.js dependencies:
+### Running the Server
 
-bash
-Copy code
-npm install
-Create Environment Variables
+Start the server:
 
-Create a .env file in the root directory based on the .env.example template. Replace your_jwt_secret_key with your own secret key:
+``npm start``
 
-plaintext
-Copy code
-JWT_SECRET=your_jwt_secret_key
-Run the Application
+## Usage
+**API Documentation**
+You can access the API documentation at http://localhost:3000/api-docs.
 
-Start the application using nodemon for automatic restarts on code changes:
+**Register a new user:**
+Send a POST request to /auth/register with the following JSON payload:
+``{
+  "username": "your_username",
+  "password": "your_password"
+}``
 
-bash
-Copy code
-npx nodemon src/app.js
-The server will start on port 3000 by default. You can change the port by setting the PORT environment variable.
+**Login a user:**
+Send a POST request to /auth/login with the following JSON payload:
+``{
+  "username": "your_username",
+  "password": "your_password"
+}``
 
-API Endpoints
-1. Register a New User
-URL: /auth/register
+**Access a protected route:**
+- The response will include a JWT token in the token field.
+- Include the JWT token in the Authorization header of your request, using the format Bearer your_token.
 
-Method: POST
 
-Request Body:
+*For example:*
+`curl -H "Authorization: Bearer your_token" http://localhost:3000/existing
+`
 
-json
-Copy code
-{
-  "username": "exampleUser",
-  "password": "examplePassword"
-}
-Response:
+**Remember to:**
 
-json
-Copy code
-{
-  "message": "User registered"
-}
-2. Login and Receive JWT Token
-URL: /auth/login
+- Replace `your-username` with your actual GitHub username in the `git clone` command.
+- Update the `JWT_SECRET` and `TOKEN_EXPIRY_MINUTES` values in the `.env` file with your own configuration.
+- Add any additional information or sections relevant to your project.
 
-Method: POST
 
-Request Body:
+**Contributing**
+Contributions are welcome! Please open an issue or submit a pull request.
 
-json
-Copy code
-{
-  "username": "exampleUser",
-  "password": "examplePassword"
-}
-Response:
+**License**
+This project is licensed under the MIT License.
 
-json
-Copy code
-{
-  "token": "your_jwt_token_here"
-}
-3. Access a Protected Route
-URL: /protected
+**Acknowledgements**
+express
+dotenv
+swagger-ui-express
 
-Method: GET
-
-Headers:
-
-makefile
-Copy code
-Authorization: Bearer <your_jwt_token_here>
-Response:
-
-json
-Copy code
-{
-  "message": "This is a protected route",
-  "user": {
-    "username": "exampleUser"
-  }
-}
-Error Handling
-The authentication middleware provides detailed error messages for various scenarios:
-
-401 Unauthorized: If the authorization header is missing or malformed.
-401 Unauthorized: If the JWT token is invalid or has expired.
-500 Internal Server Error: For unexpected server errors during token verification.
-Postman Collection
-A Postman collection for testing the API endpoints is included in the repository under the Postman directory. Import the collection into Postman to test the endpoints with sample data.
-
-Contributing
-Feel free to open issues or submit pull requests if you have suggestions or improvements.
-
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-For any additional questions or issues, please contact the repository maintainer.
-
-markdown
-Copy code
-
-### Additional Notes:
-- Make sure you create a `.env.example` file to guide users in setting up their environment variables.
-- Update the `Postman` directory or section if you include a Postman collection in your repository. If not, you can remove that part or adjust it according to your setup.
+This detailed README.md file provides a comprehensive guide for users to understand, set up, and use your authentication service.
